@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pijiuji.mapper.TixianMapper" >
+  <resultMap id="BaseResultMap" type="com.pijiuji.bean.Tixian" >
+    <id column="tx_id" property="txId" jdbcType="VARCHAR" />
+    <result column="tx_userid" property="txUserid" jdbcType="VARCHAR" />
+    <result column="tx_money" property="txMoney" jdbcType="VARCHAR" />
+    <result column="tx_time" property="txTime" jdbcType="TIMESTAMP" />
+    <result column="tx_success_time" property="txSuccessTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    tx_id, tx_userid, tx_money, tx_time, tx_success_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pijiuji.bean.TixianExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tixian
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tixian
+    where tx_id = #{txId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tixian
+    where tx_id = #{txId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pijiuji.bean.TixianExample" >
+    delete from tixian
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pijiuji.bean.Tixian" >
+    insert into tixian (tx_id, tx_userid, tx_money, 
+      tx_time, tx_success_time)
+    values (#{txId,jdbcType=VARCHAR}, #{txUserid,jdbcType=VARCHAR}, #{txMoney,jdbcType=VARCHAR},
+      #{txTime,jdbcType=TIMESTAMP}, #{txSuccessTime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pijiuji.bean.Tixian" >
+    insert into tixian
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="txId != null" >
+        tx_id,
+      </if>
+      <if test="txUserid != null" >
+        tx_userid,
+      </if>
+      <if test="txMoney != null" >
+        tx_money,
+      </if>
+      <if test="txTime != null" >
+        tx_time,
+      </if>
+      <if test="txSuccessTime != null" >
+        tx_success_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="txId != null" >
+        #{txId,jdbcType=VARCHAR},
+      </if>
+      <if test="txUserid != null" >
+        #{txUserid,jdbcType=VARCHAR},
+      </if>
+      <if test="txMoney != null" >
+        #{txMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="txTime != null" >
+        #{txTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="txSuccessTime != null" >
+        #{txSuccessTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pijiuji.bean.TixianExample" resultType="java.lang.Integer" >
+    select count(*) from tixian
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tixian
+    <set >
+      <if test="record.txId != null" >
+        tx_id = #{record.txId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.txUserid != null" >
+        tx_userid = #{record.txUserid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.txMoney != null" >
+        tx_money = #{record.txMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="record.txTime != null" >
+        tx_time = #{record.txTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.txSuccessTime != null" >
+        tx_success_time = #{record.txSuccessTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tixian
+    set tx_id = #{record.txId,jdbcType=VARCHAR},
+      tx_userid = #{record.txUserid,jdbcType=VARCHAR},
+      tx_money = #{record.txMoney,jdbcType=VARCHAR},
+      tx_time = #{record.txTime,jdbcType=TIMESTAMP},
+      tx_success_time = #{record.txSuccessTime,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pijiuji.bean.Tixian" >
+    update tixian
+    <set >
+      <if test="txUserid != null" >
+        tx_userid = #{txUserid,jdbcType=VARCHAR},
+      </if>
+      <if test="txMoney != null" >
+        tx_money = #{txMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="txTime != null" >
+        tx_time = #{txTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="txSuccessTime != null" >
+        tx_success_time = #{txSuccessTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where tx_id = #{txId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pijiuji.bean.Tixian" >
+    update tixian
+    set tx_userid = #{txUserid,jdbcType=VARCHAR},
+      tx_money = #{txMoney,jdbcType=VARCHAR},
+      tx_time = #{txTime,jdbcType=TIMESTAMP},
+      tx_success_time = #{txSuccessTime,jdbcType=VARCHAR}
+    where tx_id = #{txId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectTixianByUserId" parameterType="java.lang.String" resultType="java.util.Map">
+     select tx_id,tx_money,tx_success_time,level_user_name from tixian inner join level_user on tx_userid = level_user_id where tx_userid = #{txUserid}
+  </select>
+</mapper>

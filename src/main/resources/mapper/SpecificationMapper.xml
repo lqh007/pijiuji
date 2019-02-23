@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pijiuji.mapper.SpecificationMapper">
+  <resultMap id="BaseResultMap" type="com.pijiuji.bean.Specification">
+    <id column="spe_id" property="speId" jdbcType="VARCHAR"/>
+    <result column="spe_size" property="speSize" jdbcType="VARCHAR"/>
+    <result column="spe_price" property="spePrice" jdbcType="VARCHAR"/>
+    <result column="spe_pro_id" property="speProId" jdbcType="VARCHAR"/>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" suffix=")" prefixOverrides="and">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                           separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" suffix=")" prefixOverrides="and">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                           separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    spe_id, spe_size, spe_price, spe_pro_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pijiuji.bean.SpecificationExample">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List"/>
+    from specification
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause"/>
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List"/>
+    from specification
+    where spe_id = #{speId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from specification
+    where spe_id = #{speId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pijiuji.bean.SpecificationExample">
+    delete from specification
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause"/>
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pijiuji.bean.Specification">
+    insert into specification (spe_id, spe_size, spe_price, spe_pro_id
+      )
+    values (#{speId,jdbcType=VARCHAR}, #{speSize,jdbcType=VARCHAR}, #{spePrice,jdbcType=VARCHAR}, #{speProId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pijiuji.bean.Specification" useGeneratedKeys="true" keyProperty="speId">
+    insert into specification
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="speId != null">
+        spe_id,
+      </if>
+      <if test="speSize != null">
+        spe_size,
+      </if>
+      <if test="spePrice != null">
+        spe_price,
+      </if>
+      <if test="speProId != null">
+        spe_pro_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="speId != null">
+        #{speId,jdbcType=VARCHAR},
+      </if>
+      <if test="speSize != null">
+        #{speSize,jdbcType=VARCHAR},
+      </if>
+      <if test="spePrice != null">
+        #{spePrice,jdbcType=VARCHAR},
+      </if>
+      <if test="speProId != null">
+        #{speProId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pijiuji.bean.SpecificationExample" resultType="java.lang.Integer">
+    select count(*) from specification
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause"/>
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update specification
+    <set>
+      <if test="record.speId != null">
+        spe_id = #{record.speId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.speSize != null">
+        spe_size = #{record.speSize,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spePrice != null">
+        spe_price = #{record.spePrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.speProId != null">
+        spe_pro_id = #{record.speProId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause"/>
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update specification
+    set spe_id = #{record.speId,jdbcType=VARCHAR},
+    spe_size = #{record.speSize,jdbcType=VARCHAR},
+    spe_price = #{record.spePrice,jdbcType=VARCHAR},
+    spe_pro_id = #{record.speProId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause"/>
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pijiuji.bean.Specification">
+    update specification
+    <set>
+      <if test="speSize != null">
+        spe_size = #{speSize,jdbcType=VARCHAR},
+      </if>
+      <if test="spePrice != null">
+        spe_price = #{spePrice,jdbcType=VARCHAR},
+      </if>
+      <if test="speProId != null">
+        spe_pro_id = #{speProId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where spe_id = #{speId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pijiuji.bean.Specification">
+    update specification
+    set spe_size = #{speSize,jdbcType=VARCHAR},
+      spe_price = #{spePrice,jdbcType=VARCHAR},
+      spe_pro_id = #{speProId,jdbcType=VARCHAR}
+    where spe_id = #{speId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="findSpecification" parameterType="java.lang.String" resultType="java.util.Map">
+      select ss.price as 'price',s.spe_size as 'size',s.spe_id as 'speId' from shop_specification ss inner join specification s on ss.spec_id = s.spe_id where ss.pjj_id = #{pjjId} and s.spe_id = #{speId}
+  </select>
+
+  <select id="selectSpecificationAll" parameterType="java.lang.String" resultType="java.util.Map">
+        select spe_id as 'speId',spe_size as 'size',spe_price as 'price' from specification where spe_pro_id = #{speProId}
+    </select>
+
+  <select id="selectSpecificationByProductId" parameterType="java.lang.String"
+          resultType="com.pijiuji.bean.Specification">
+      select * from specification where spe_pro_id = #{speProId}
+  </select>
+
+  <delete id="deleteSpeByProductId" parameterType="java.lang.String">
+    delete from specification where spe_pro_id = #{speProId}
+  </delete>
+
+    <select id="selectSpecificationList" resultType="java.util.Map">
+        select spe_id as 'speId',spe_size as 'size',spe_price as 'price',product_name as 'productName',product_id as 'productId' from specification inner join product on spe_pro_id = product_id
+    </select>
+
+    <select id="selectSpec" parameterType="java.lang.String" resultType="java.util.Map">
+        select spe_id as 'speId',spe_size as 'size',spe_price as 'price',product_name as 'productName',product_id as 'productId' from specification inner join product on spe_pro_id = product_id where spe_id = #{speId}
+    </select>
+
+</mapper>

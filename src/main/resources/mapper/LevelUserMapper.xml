@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pijiuji.mapper.LevelUserMapper">
+    <resultMap id="BaseResultMap" type="com.pijiuji.bean.LevelUser" >
+        <id column="level_user_id" property="levelUserId" jdbcType="VARCHAR" />
+        <result column="level_user_headimg" property="levelUserHeadimg" jdbcType="VARCHAR" />
+        <result column="level_user_name" property="levelUserName" jdbcType="VARCHAR" />
+        <result column="level_user_address" property="levelUserAddress" jdbcType="VARCHAR" />
+        <result column="level_user_phone" property="levelUserPhone" jdbcType="VARCHAR" />
+        <result column="level_user_password" property="levelUserPassword" jdbcType="VARCHAR" />
+        <result column="level_user_status" property="levelUserStatus" jdbcType="VARCHAR" />
+        <result column="level_user_apply_status" property="levelUserApplyStatus" jdbcType="VARCHAR" />
+        <result column="level_user_time" property="levelUserTime" jdbcType="TIMESTAMP" />
+        <result column="level_user_parent_openid" property="levelUserParentOpenid" jdbcType="VARCHAR" />
+        <result column="level_user_level" property="levelUserLevel" jdbcType="VARCHAR" />
+        <result column="level_user_wx_openid" property="levelUserWxOpenid" jdbcType="VARCHAR" />
+        <result column="level_user_money" property="levelUserMoney" jdbcType="VARCHAR" />
+        <result column="level_role_id" property="levelRoleId" jdbcType="INTEGER" />
+        <result column="level_user_reason" property="levelUserReason" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Example_Where_Clause" >
+        <where >
+            <foreach collection="oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause" >
+        <where >
+            <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List" >
+        level_user_id, level_user_headimg, level_user_name, level_user_address, level_user_phone,
+        level_user_password, level_user_status, level_user_apply_status, level_user_time,
+        level_user_parent_openid, level_user_level, level_user_wx_openid, level_user_money,
+        level_role_id, level_user_reason
+    </sql>
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pijiuji.bean.LevelUserExample" >
+        select
+        <if test="distinct" >
+            distinct
+        </if>
+        <include refid="Base_Column_List" />
+        from level_user
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null" >
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select
+        <include refid="Base_Column_List" />
+        from level_user
+        where level_user_id = #{levelUserId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from level_user
+        where level_user_id = #{levelUserId,jdbcType=VARCHAR}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.pijiuji.bean.LevelUserExample" >
+        delete from level_user
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.pijiuji.bean.LevelUser" >
+        insert into level_user (level_user_id, level_user_headimg, level_user_name,
+        level_user_address, level_user_phone, level_user_password,
+        level_user_status, level_user_apply_status,
+        level_user_time, level_user_parent_openid,
+        level_user_level, level_user_wx_openid, level_user_money,
+        level_role_id, level_user_reason)
+        values (#{levelUserId,jdbcType=VARCHAR}, #{levelUserHeadimg,jdbcType=VARCHAR}, #{levelUserName,jdbcType=VARCHAR},
+        #{levelUserAddress,jdbcType=VARCHAR}, #{levelUserPhone,jdbcType=VARCHAR}, #{levelUserPassword,jdbcType=VARCHAR},
+        #{levelUserStatus,jdbcType=VARCHAR}, #{levelUserApplyStatus,jdbcType=VARCHAR},
+        #{levelUserTime,jdbcType=TIMESTAMP}, #{levelUserParentOpenid,jdbcType=VARCHAR},
+        #{levelUserLevel,jdbcType=VARCHAR}, #{levelUserWxOpenid,jdbcType=VARCHAR}, #{levelUserMoney,jdbcType=VARCHAR},
+        #{levelRoleId,jdbcType=INTEGER}, #{levelUserReason,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.pijiuji.bean.LevelUser" >
+        insert into level_user
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="levelUserId != null" >
+                level_user_id,
+            </if>
+            <if test="levelUserHeadimg != null" >
+                level_user_headimg,
+            </if>
+            <if test="levelUserName != null" >
+                level_user_name,
+            </if>
+            <if test="levelUserAddress != null" >
+                level_user_address,
+            </if>
+            <if test="levelUserPhone != null" >
+                level_user_phone,
+            </if>
+            <if test="levelUserPassword != null" >
+                level_user_password,
+            </if>
+            <if test="levelUserStatus != null" >
+                level_user_status,
+            </if>
+            <if test="levelUserApplyStatus != null" >
+                level_user_apply_status,
+            </if>
+            <if test="levelUserTime != null" >
+                level_user_time,
+            </if>
+            <if test="levelUserParentOpenid != null" >
+                level_user_parent_openid,
+            </if>
+            <if test="levelUserLevel != null" >
+                level_user_level,
+            </if>
+            <if test="levelUserWxOpenid != null" >
+                level_user_wx_openid,
+            </if>
+            <if test="levelUserMoney != null" >
+                level_user_money,
+            </if>
+            <if test="levelRoleId != null" >
+                level_role_id,
+            </if>
+            <if test="levelUserReason != null" >
+                level_user_reason,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="levelUserId != null" >
+                #{levelUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="levelUserHeadimg != null" >
+                #{levelUserHeadimg,jdbcType=VARCHAR},
+            </if>
+            <if test="levelUserName != null" >
+                #{levelUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="levelUserAddress != null" >
+                #{levelUserAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="levelUserPhone != null" >
+                #{levelUserPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="levelUserPassword != null" >
+                #{levelUserPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="levelUserStatus != null" >
+                #{levelUserStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="levelUserApplyStatus != null" >
+                #{levelUserApplyStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="levelUserTime != null" >
+                #{levelUserTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="levelUserParentOpenid != null" >
+                #{levelUserParentOpenid,jdbcType=VARCHAR},
+            </if>
+            <if test="levelUserLevel != null" >
+                #{levelUserLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="levelUserWxOpenid != null" >
+                #{levelUserWxOpenid,jdbcType=VARCHAR},
+            </if>
+            <if test="levelUserMoney != null" >
+                #{levelUserMoney,jdbcType=VARCHAR},
+            </if>
+            <if test="levelRoleId != null" >
+                #{levelRoleId,jdbcType=INTEGER},
+            </if>
+            <if test="levelUserReason != null" >
+                #{levelUserReason,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.pijiuji.bean.LevelUserExample" resultType="java.lang.Integer" >
+        select count(*) from level_user
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map" >
+        update level_user
+        <set >
+            <if test="record.levelUserId != null" >
+                level_user_id = #{record.levelUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.levelUserHeadimg != null" >
+                level_user_headimg = #{record.levelUserHeadimg,jdbcType=VARCHAR},
+            </if>
+            <if test="record.levelUserName != null" >
+                level_user_name = #{record.levelUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.levelUserAddress != null" >
+                level_user_address = #{record.levelUserAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="record.levelUserPhone != null" >
+                level_user_phone = #{record.levelUserPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="record.levelUserPassword != null" >
+                level_user_password = #{record.levelUserPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="record.levelUserStatus != null" >
+                level_user_status = #{record.levelUserStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="record.levelUserApplyStatus != null" >
+                level_user_apply_status = #{record.levelUserApplyStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="record.levelUserTime != null" >
+                level_user_time = #{record.levelUserTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.levelUserParentOpenid != null" >
+                level_user_parent_openid = #{record.levelUserParentOpenid,jdbcType=VARCHAR},
+            </if>
+            <if test="record.levelUserLevel != null" >
+                level_user_level = #{record.levelUserLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="record.levelUserWxOpenid != null" >
+                level_user_wx_openid = #{record.levelUserWxOpenid,jdbcType=VARCHAR},
+            </if>
+            <if test="record.levelUserMoney != null" >
+                level_user_money = #{record.levelUserMoney,jdbcType=VARCHAR},
+            </if>
+            <if test="record.levelRoleId != null" >
+                level_role_id = #{record.levelRoleId,jdbcType=INTEGER},
+            </if>
+            <if test="record.levelUserReason != null" >
+                level_user_reason = #{record.levelUserReason,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map" >
+        update level_user
+        set level_user_id = #{record.levelUserId,jdbcType=VARCHAR},
+        level_user_headimg = #{record.levelUserHeadimg,jdbcType=VARCHAR},
+        level_user_name = #{record.levelUserName,jdbcType=VARCHAR},
+        level_user_address = #{record.levelUserAddress,jdbcType=VARCHAR},
+        level_user_phone = #{record.levelUserPhone,jdbcType=VARCHAR},
+        level_user_password = #{record.levelUserPassword,jdbcType=VARCHAR},
+        level_user_status = #{record.levelUserStatus,jdbcType=VARCHAR},
+        level_user_apply_status = #{record.levelUserApplyStatus,jdbcType=VARCHAR},
+        level_user_time = #{record.levelUserTime,jdbcType=TIMESTAMP},
+        level_user_parent_openid = #{record.levelUserParentOpenid,jdbcType=VARCHAR},
+        level_user_level = #{record.levelUserLevel,jdbcType=VARCHAR},
+        level_user_wx_openid = #{record.levelUserWxOpenid,jdbcType=VARCHAR},
+        level_user_money = #{record.levelUserMoney,jdbcType=VARCHAR},
+        level_role_id = #{record.levelRoleId,jdbcType=INTEGER},
+        level_user_reason = #{record.levelUserReason,jdbcType=VARCHAR}
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.pijiuji.bean.LevelUser" >
+        update level_user
+        <set >
+            <if test="levelUserHeadimg != null" >
+                level_user_headimg = #{levelUserHeadimg,jdbcType=VARCHAR},
+            </if>
+            <if test="levelUserName != null" >
+                level_user_name = #{levelUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="levelUserAddress != null" >
+                level_user_address = #{levelUserAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="levelUserPhone != null" >
+                level_user_phone = #{levelUserPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="levelUserPassword != null" >
+                level_user_password = #{levelUserPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="levelUserStatus != null" >
+                level_user_status = #{levelUserStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="levelUserApplyStatus != null" >
+                level_user_apply_status = #{levelUserApplyStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="levelUserTime != null" >
+                level_user_time = #{levelUserTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="levelUserParentOpenid != null" >
+                level_user_parent_openid = #{levelUserParentOpenid,jdbcType=VARCHAR},
+            </if>
+            <if test="levelUserLevel != null" >
+                level_user_level = #{levelUserLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="levelUserWxOpenid != null" >
+                level_user_wx_openid = #{levelUserWxOpenid,jdbcType=VARCHAR},
+            </if>
+            <if test="levelUserMoney != null" >
+                level_user_money = #{levelUserMoney,jdbcType=VARCHAR},
+            </if>
+            <if test="levelRoleId != null" >
+                level_role_id = #{levelRoleId,jdbcType=INTEGER},
+            </if>
+            <if test="levelUserReason != null" >
+                level_user_reason = #{levelUserReason,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where level_user_id = #{levelUserId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.pijiuji.bean.LevelUser" >
+    update level_user
+    set level_user_headimg = #{levelUserHeadimg,jdbcType=VARCHAR},
+      level_user_name = #{levelUserName,jdbcType=VARCHAR},
+      level_user_address = #{levelUserAddress,jdbcType=VARCHAR},
+      level_user_phone = #{levelUserPhone,jdbcType=VARCHAR},
+      level_user_password = #{levelUserPassword,jdbcType=VARCHAR},
+      level_user_status = #{levelUserStatus,jdbcType=VARCHAR},
+      level_user_apply_status = #{levelUserApplyStatus,jdbcType=VARCHAR},
+      level_user_time = #{levelUserTime,jdbcType=TIMESTAMP},
+      level_user_parent_openid = #{levelUserParentOpenid,jdbcType=VARCHAR},
+      level_user_level = #{levelUserLevel,jdbcType=VARCHAR},
+      level_user_wx_openid = #{levelUserWxOpenid,jdbcType=VARCHAR},
+      level_user_money = #{levelUserMoney,jdbcType=VARCHAR},
+      level_role_id = #{levelRoleId,jdbcType=INTEGER},
+      level_user_reason = #{levelUserReason,jdbcType=VARCHAR}
+    where level_user_id = #{levelUserId,jdbcType=VARCHAR}
+  </update>
+
+    <select id="selectIsLevelUser" parameterType="java.lang.String" resultType="com.pijiuji.bean.LevelUser">
+        select * from level_user where level_user_wx_openid = #{levelUserWxOpenid}
+    </select>
+
+    <select id="selectLevelUserByParam" parameterType="java.lang.String" resultType="com.pijiuji.bean.LevelUser">
+        select * from level_user where level_user_name = #{parentName} and level_user_phone = #{parentPhone}
+    </select>
+
+    <select id="selectChildLevelUser" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(*) from level_user where level_user_parent_openid = #{levelUserParentOpenid}
+    </select>
+
+    <select id="findEmployeeById" parameterType="java.lang.String" resultType="com.pijiuji.bean.LevelUser">
+        select * from level_user where level_user_id = #{levelUserId}
+    </select>
+
+    <select id="selectParent" parameterType="java.lang.String" resultType="com.pijiuji.bean.LevelUser">
+        select * from level_user where level_user_wx_openid = #{levelUserWxOpenid}
+    </select>
+    <select id="searchLevelUser" parameterType="java.util.HashMap" resultType="com.pijiuji.bean.LevelUser">
+        select * from level_user
+          <where>
+              <if test="levelUserName != null and '' != levelUserName ">
+                  AND level_user_name LIKE '%${levelUserName}%'
+              </if>
+              <if test="levelUserPhone != null and '' != levelUserPhone ">
+                  AND level_user_phone LIKE '%${levelUserPhone}%'
+              </if>
+              <if test="levelUserStatus != null and '' != level_user_status ">
+                  AND level_user_status = #{levelUserStatus}
+              </if>
+              <if test="levelUserApplyStatus != null and '' != levelUserApplyStatus">
+                  level_user_apply_status = #{levelUserApplyStatus}
+              </if>
+          </where>
+    </select>
+
+</mapper>

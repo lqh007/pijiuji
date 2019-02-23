@@ -1,0 +1,35 @@
+spring:
+    datasource:
+        name: test
+        url: jdbc:mysql://47.105.192.11:3306/pijiuji?useUnicode=true&characterEncoding=utf-8
+        username: root
+        password: 123456
+        #使用hikar数据源
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        hikari:
+          minimum-idle: 3
+          auto-commit: true
+          idle-timeout: 10000
+          pool-name: DatebookHikariCP
+          max-lifetime: 1800000
+          connection-timeout: 30000
+    thymeleaf:
+      mode: LEGACYHTML5
+      cache: false
+
+#该配置节点为独立的节点，有很多同学容易将这个配置放在spring的节点下，导致配置无法被识别
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true #注意：驼峰式命名规则
+  mapper-locations: classpath:mapper/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
+  type-aliases-package: com.pijiuji.bean  # 注意：对应实体类的路径
+server:
+  port: 80
+#公共参数
+lottery:
+  count: 3
+  url: http://www.munihei.net
+#  url: http://xiaorongrong.natapp1.cc
+logging:
+  level: debug

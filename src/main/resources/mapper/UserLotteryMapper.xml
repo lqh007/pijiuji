@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pijiuji.mapper.UserLotteryMapper">
+    <resultMap id="BaseResultMap" type="com.pijiuji.bean.UserLottery">
+        <id column="ul_id" property="ulId" jdbcType="VARCHAR"/>
+        <result column="ul_user_openid" property="ulUserOpenid" jdbcType="VARCHAR"/>
+        <result column="ul_lottery_name" property="ulLotteryName" jdbcType="VARCHAR"/>
+        <result column="ul_lottery_img" property="ulLotteryImg" jdbcType="VARCHAR"/>
+        <result column="ul_lottery_type" property="ulLotteryType" jdbcType="VARCHAR"/>
+        <result column="ul_lottery_detail" property="ulLotteryDetail" jdbcType="VARCHAR"/>
+        <result column="ul_time" property="ulTime" jdbcType="TIMESTAMP"/>
+        <result column="ul_cdkey" property="ulCdkey" jdbcType="VARCHAR"/>
+        <result column="ul_status" property="ulStatus" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    ul_id, ul_user_openid, ul_lottery_name, ul_lottery_img, ul_lottery_type, ul_lottery_detail, 
+    ul_time, ul_cdkey, ul_status
+  </sql>
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pijiuji.bean.UserLotteryExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from user_lottery
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from user_lottery
+        where ul_id = #{ulId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from user_lottery
+    where ul_id = #{ulId,jdbcType=VARCHAR}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.pijiuji.bean.UserLotteryExample">
+        delete from user_lottery
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.pijiuji.bean.UserLottery">
+    insert into user_lottery (ul_id, ul_user_openid, ul_lottery_name, 
+      ul_lottery_img, ul_lottery_type, ul_lottery_detail, 
+      ul_time, ul_cdkey, ul_status
+      )
+    values (#{ulId,jdbcType=VARCHAR}, #{ulUserOpenid,jdbcType=VARCHAR}, #{ulLotteryName,jdbcType=VARCHAR}, 
+      #{ulLotteryImg,jdbcType=VARCHAR}, #{ulLotteryType,jdbcType=VARCHAR}, #{ulLotteryDetail,jdbcType=VARCHAR}, 
+      #{ulTime,jdbcType=TIMESTAMP}, #{ulCdkey,jdbcType=VARCHAR}, #{ulStatus,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.pijiuji.bean.UserLottery">
+        insert into user_lottery
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="ulId != null">
+                ul_id,
+            </if>
+            <if test="ulUserOpenid != null">
+                ul_user_openid,
+            </if>
+            <if test="ulLotteryName != null">
+                ul_lottery_name,
+            </if>
+            <if test="ulLotteryImg != null">
+                ul_lottery_img,
+            </if>
+            <if test="ulLotteryType != null">
+                ul_lottery_type,
+            </if>
+            <if test="ulLotteryDetail != null">
+                ul_lottery_detail,
+            </if>
+            <if test="ulTime != null">
+                ul_time,
+            </if>
+            <if test="ulCdkey != null">
+                ul_cdkey,
+            </if>
+            <if test="ulStatus != null">
+                ul_status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="ulId != null">
+                #{ulId,jdbcType=VARCHAR},
+            </if>
+            <if test="ulUserOpenid != null">
+                #{ulUserOpenid,jdbcType=VARCHAR},
+            </if>
+            <if test="ulLotteryName != null">
+                #{ulLotteryName,jdbcType=VARCHAR},
+            </if>
+            <if test="ulLotteryImg != null">
+                #{ulLotteryImg,jdbcType=VARCHAR},
+            </if>
+            <if test="ulLotteryType != null">
+                #{ulLotteryType,jdbcType=VARCHAR},
+            </if>
+            <if test="ulLotteryDetail != null">
+                #{ulLotteryDetail,jdbcType=VARCHAR},
+            </if>
+            <if test="ulTime != null">
+                #{ulTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="ulCdkey != null">
+                #{ulCdkey,jdbcType=VARCHAR},
+            </if>
+            <if test="ulStatus != null">
+                #{ulStatus,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.pijiuji.bean.UserLotteryExample" resultType="java.lang.Integer">
+        select count(*) from user_lottery
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update user_lottery
+        <set>
+            <if test="record.ulId != null">
+                ul_id = #{record.ulId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.ulUserOpenid != null">
+                ul_user_openid = #{record.ulUserOpenid,jdbcType=VARCHAR},
+            </if>
+            <if test="record.ulLotteryName != null">
+                ul_lottery_name = #{record.ulLotteryName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.ulLotteryImg != null">
+                ul_lottery_img = #{record.ulLotteryImg,jdbcType=VARCHAR},
+            </if>
+            <if test="record.ulLotteryType != null">
+                ul_lottery_type = #{record.ulLotteryType,jdbcType=VARCHAR},
+            </if>
+            <if test="record.ulLotteryDetail != null">
+                ul_lottery_detail = #{record.ulLotteryDetail,jdbcType=VARCHAR},
+            </if>
+            <if test="record.ulTime != null">
+                ul_time = #{record.ulTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.ulCdkey != null">
+                ul_cdkey = #{record.ulCdkey,jdbcType=VARCHAR},
+            </if>
+            <if test="record.ulStatus != null">
+                ul_status = #{record.ulStatus,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update user_lottery
+        set ul_id = #{record.ulId,jdbcType=VARCHAR},
+        ul_user_openid = #{record.ulUserOpenid,jdbcType=VARCHAR},
+        ul_lottery_name = #{record.ulLotteryName,jdbcType=VARCHAR},
+        ul_lottery_img = #{record.ulLotteryImg,jdbcType=VARCHAR},
+        ul_lottery_type = #{record.ulLotteryType,jdbcType=VARCHAR},
+        ul_lottery_detail = #{record.ulLotteryDetail,jdbcType=VARCHAR},
+        ul_time = #{record.ulTime,jdbcType=TIMESTAMP},
+        ul_cdkey = #{record.ulCdkey,jdbcType=VARCHAR},
+        ul_status = #{record.ulStatus,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.pijiuji.bean.UserLottery">
+        update user_lottery
+        <set>
+            <if test="ulUserOpenid != null">
+                ul_user_openid = #{ulUserOpenid,jdbcType=VARCHAR},
+            </if>
+            <if test="ulLotteryName != null">
+                ul_lottery_name = #{ulLotteryName,jdbcType=VARCHAR},
+            </if>
+            <if test="ulLotteryImg != null">
+                ul_lottery_img = #{ulLotteryImg,jdbcType=VARCHAR},
+            </if>
+            <if test="ulLotteryType != null">
+                ul_lottery_type = #{ulLotteryType,jdbcType=VARCHAR},
+            </if>
+            <if test="ulLotteryDetail != null">
+                ul_lottery_detail = #{ulLotteryDetail,jdbcType=VARCHAR},
+            </if>
+            <if test="ulTime != null">
+                ul_time = #{ulTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="ulCdkey != null">
+                ul_cdkey = #{ulCdkey,jdbcType=VARCHAR},
+            </if>
+            <if test="ulStatus != null">
+                ul_status = #{ulStatus,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ul_id = #{ulId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.pijiuji.bean.UserLottery">
+    update user_lottery
+    set ul_user_openid = #{ulUserOpenid,jdbcType=VARCHAR},
+      ul_lottery_name = #{ulLotteryName,jdbcType=VARCHAR},
+      ul_lottery_img = #{ulLotteryImg,jdbcType=VARCHAR},
+      ul_lottery_type = #{ulLotteryType,jdbcType=VARCHAR},
+      ul_lottery_detail = #{ulLotteryDetail,jdbcType=VARCHAR},
+      ul_time = #{ulTime,jdbcType=TIMESTAMP},
+      ul_cdkey = #{ulCdkey,jdbcType=VARCHAR},
+      ul_status = #{ulStatus,jdbcType=VARCHAR}
+    where ul_id = #{ulId,jdbcType=VARCHAR}
+  </update>
+
+    <select id="selectUserIsLottery" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(ul_id) from user_lottery where ul_cdkey = #{ulCdkey}
+    </select>
+
+    <select id="findUserLottery" parameterType="java.lang.String" resultType="com.pijiuji.bean.UserLottery">
+      select * from user_lottery WHERE ul_cdkey = #{cdkey}
+    </select>
+</mapper>

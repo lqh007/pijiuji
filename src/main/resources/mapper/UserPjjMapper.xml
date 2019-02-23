@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pijiuji.mapper.UserPjjMapper" >
+  <resultMap id="BaseResultMap" type="com.pijiuji.bean.UserPjj" >
+    <id column="pjj_id" property="pjjId" jdbcType="VARCHAR" />
+    <result column="pjj_user_id" property="pjjUserId" jdbcType="VARCHAR" />
+    <result column="pjj_detail_address" property="pjjDetailAddress" jdbcType="VARCHAR" />
+    <result column="pjj_status" property="pjjStatus" jdbcType="VARCHAR" />
+    <result column="pjj_time" property="pjjTime" jdbcType="TIMESTAMP" />
+    <result column="pjj_jiu_code" property="pjjJiuCode" jdbcType="VARCHAR" />
+    <result column="pjj_jiu_codes" property="pjjJiuCodes" jdbcType="VARCHAR" />
+    <result column="pjj_qi_num" property="pjjQiNum" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    pjj_id, pjj_user_id, pjj_detail_address, pjj_status, pjj_time, pjj_jiu_code, pjj_jiu_codes, 
+    pjj_qi_num
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pijiuji.bean.UserPjjExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_pjj
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_pjj
+    where pjj_id = #{pjjId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user_pjj
+    where pjj_id = #{pjjId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pijiuji.bean.UserPjjExample" >
+    delete from user_pjj
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pijiuji.bean.UserPjj" >
+    insert into user_pjj (pjj_id, pjj_user_id, pjj_detail_address, 
+      pjj_status, pjj_time, pjj_jiu_code, 
+      pjj_jiu_codes, pjj_qi_num)
+    values (#{pjjId,jdbcType=VARCHAR}, #{pjjUserId,jdbcType=VARCHAR}, #{pjjDetailAddress,jdbcType=VARCHAR}, 
+      #{pjjStatus,jdbcType=VARCHAR}, #{pjjTime,jdbcType=TIMESTAMP}, #{pjjJiuCode,jdbcType=VARCHAR}, 
+      #{pjjJiuCodes,jdbcType=VARCHAR}, #{pjjQiNum,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pijiuji.bean.UserPjj" >
+    insert into user_pjj
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pjjId != null" >
+        pjj_id,
+      </if>
+      <if test="pjjUserId != null" >
+        pjj_user_id,
+      </if>
+      <if test="pjjDetailAddress != null" >
+        pjj_detail_address,
+      </if>
+      <if test="pjjStatus != null" >
+        pjj_status,
+      </if>
+      <if test="pjjTime != null" >
+        pjj_time,
+      </if>
+      <if test="pjjJiuCode != null" >
+        pjj_jiu_code,
+      </if>
+      <if test="pjjJiuCodes != null" >
+        pjj_jiu_codes,
+      </if>
+      <if test="pjjQiNum != null" >
+        pjj_qi_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pjjId != null" >
+        #{pjjId,jdbcType=VARCHAR},
+      </if>
+      <if test="pjjUserId != null" >
+        #{pjjUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="pjjDetailAddress != null" >
+        #{pjjDetailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="pjjStatus != null" >
+        #{pjjStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="pjjTime != null" >
+        #{pjjTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pjjJiuCode != null" >
+        #{pjjJiuCode,jdbcType=VARCHAR},
+      </if>
+      <if test="pjjJiuCodes != null" >
+        #{pjjJiuCodes,jdbcType=VARCHAR},
+      </if>
+      <if test="pjjQiNum != null" >
+        #{pjjQiNum,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pijiuji.bean.UserPjjExample" resultType="java.lang.Integer" >
+    select count(*) from user_pjj
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user_pjj
+    <set >
+      <if test="record.pjjId != null" >
+        pjj_id = #{record.pjjId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pjjUserId != null" >
+        pjj_user_id = #{record.pjjUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pjjDetailAddress != null" >
+        pjj_detail_address = #{record.pjjDetailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pjjStatus != null" >
+        pjj_status = #{record.pjjStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pjjTime != null" >
+        pjj_time = #{record.pjjTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.pjjJiuCode != null" >
+        pjj_jiu_code = #{record.pjjJiuCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pjjJiuCodes != null" >
+        pjj_jiu_codes = #{record.pjjJiuCodes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pjjQiNum != null" >
+        pjj_qi_num = #{record.pjjQiNum,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user_pjj
+    set pjj_id = #{record.pjjId,jdbcType=VARCHAR},
+      pjj_user_id = #{record.pjjUserId,jdbcType=VARCHAR},
+      pjj_detail_address = #{record.pjjDetailAddress,jdbcType=VARCHAR},
+      pjj_status = #{record.pjjStatus,jdbcType=VARCHAR},
+      pjj_time = #{record.pjjTime,jdbcType=TIMESTAMP},
+      pjj_jiu_code = #{record.pjjJiuCode,jdbcType=VARCHAR},
+      pjj_jiu_codes = #{record.pjjJiuCodes,jdbcType=VARCHAR},
+      pjj_qi_num = #{record.pjjQiNum,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pijiuji.bean.UserPjj" >
+    update user_pjj
+    <set >
+      <if test="pjjUserId != null" >
+        pjj_user_id = #{pjjUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="pjjDetailAddress != null" >
+        pjj_detail_address = #{pjjDetailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="pjjStatus != null" >
+        pjj_status = #{pjjStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="pjjTime != null" >
+        pjj_time = #{pjjTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pjjJiuCode != null" >
+        pjj_jiu_code = #{pjjJiuCode,jdbcType=VARCHAR},
+      </if>
+      <if test="pjjJiuCodes != null" >
+        pjj_jiu_codes = #{pjjJiuCodes,jdbcType=VARCHAR},
+      </if>
+      <if test="pjjQiNum != null" >
+        pjj_qi_num = #{pjjQiNum,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pjj_id = #{pjjId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pijiuji.bean.UserPjj" >
+    update user_pjj
+    set pjj_user_id = #{pjjUserId,jdbcType=VARCHAR},
+      pjj_detail_address = #{pjjDetailAddress,jdbcType=VARCHAR},
+      pjj_status = #{pjjStatus,jdbcType=VARCHAR},
+      pjj_time = #{pjjTime,jdbcType=TIMESTAMP},
+      pjj_jiu_code = #{pjjJiuCode,jdbcType=VARCHAR},
+      pjj_jiu_codes = #{pjjJiuCodes,jdbcType=VARCHAR},
+      pjj_qi_num = #{pjjQiNum,jdbcType=VARCHAR}
+    where pjj_id = #{pjjId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectUserPjj" parameterType="java.lang.String" resultType="com.pijiuji.bean.UserPjj">
+    select * from user_pjj where pjj_user_id = #{pjjUserId}
+  </select>
+
+  <update id="updateUserPjjAddress" parameterType="java.lang.String">
+    update user_pjj set
+      pjj_detail_address = #{address}
+    where
+      pjj_id = #{pjjId}
+  </update>
+</mapper>

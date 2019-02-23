@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pijiuji.mapper.OrderMapper">
+    <resultMap id="BaseResultMap" type="com.pijiuji.bean.Order">
+        <id column="order_id" property="orderId" jdbcType="VARCHAR"/>
+        <result column="order_product_id" property="orderProductId" jdbcType="VARCHAR"/>
+        <result column="order_size" property="orderSize" jdbcType="VARCHAR"/>
+        <result column="order_employee_id" property="orderEmployeeId" jdbcType="VARCHAR"/>
+        <result column="order_money" property="orderMoney" jdbcType="VARCHAR"/>
+        <result column="order_num" property="orderNum" jdbcType="VARCHAR"/>
+        <result column="order_chu_num" property="orderChuNum" jdbcType="VARCHAR"/>
+        <result column="order_point" property="orderPoint" jdbcType="VARCHAR"/>
+        <result column="order_spec_id" property="orderSpecId" jdbcType="VARCHAR"/>
+        <result column="order_transaction_id" property="orderTransactionId" jdbcType="VARCHAR"/>
+        <result column="order_is_chujiu" property="orderIsChujiu" jdbcType="VARCHAR"/>
+        <result column="order_status" property="orderStatus" jdbcType="VARCHAR"/>
+        <result column="order_createtime" property="orderCreatetime" jdbcType="VARCHAR"/>
+        <result column="order_paytime" property="orderPaytime" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    order_id,order_product_id,order_size,order_employee_id,order_money,order_num,order_chu_num,
+    order_point,order_spec_id,order_transaction_id,order_is_chujiu,order_status,
+    order_createtime,order_paytime
+  </sql>
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pijiuji.bean.OrderExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from `order`
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from `order`
+        where order_id = #{orderId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from order
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.pijiuji.bean.OrderExample">
+        delete from order
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.pijiuji.bean.Order">
+    insert into order (order_id, order_product_id, order_size, 
+      order_employee_id, order_money, order_num,order_chu_num,
+      order_point, order_spec_id, order_transaction_id, 
+      order_is_chujiu, order_status, order_createtime, 
+      order_paytime)
+    values (#{orderId,jdbcType=VARCHAR}, #{orderProductId,jdbcType=VARCHAR}, #{orderSize,jdbcType=VARCHAR}, 
+      #{orderEmployeeId,jdbcType=VARCHAR}, #{orderMoney,jdbcType=VARCHAR}, #{orderNum,jdbcType=VARCHAR}, #{orderChuNum,jdbcType=VARCHAR},
+      #{orderPoint,jdbcType=VARCHAR}, #{orderSpecId,jdbcType=VARCHAR}, #{orderTransactionId,jdbcType=VARCHAR}, 
+      #{orderIsChujiu,jdbcType=VARCHAR}, #{orderStatus,jdbcType=VARCHAR}, #{orderCreatetime,jdbcType=VARCHAR}, 
+      #{orderPaytime,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.pijiuji.bean.Order">
+        insert into `order`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">
+                order_id,
+            </if>
+            <if test="orderProductId != null">
+                order_product_id,
+            </if>
+            <if test="orderSize != null">
+                order_size,
+            </if>
+            <if test="orderEmployeeId != null">
+                order_employee_id,
+            </if>
+            <if test="orderMoney != null">
+                order_money,
+            </if>
+            <if test="orderNum != null">
+                order_num,
+            </if>
+            <if test="orderChuNum != null">
+                order_chu_num,
+            </if>
+            <if test="orderPoint != null">
+                order_point,
+            </if>
+            <if test="orderSpecId != null">
+                order_spec_id,
+            </if>
+            <if test="orderTransactionId != null">
+                order_transaction_id,
+            </if>
+            <if test="orderIsChujiu != null">
+                order_is_chujiu,
+            </if>
+            <if test="orderStatus != null">
+                order_status,
+            </if>
+            <if test="orderCreatetime != null">
+                order_createtime,
+            </if>
+            <if test="orderPaytime != null">
+                order_paytime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">
+                #{orderId,jdbcType=VARCHAR},
+            </if>
+            <if test="orderProductId != null">
+                #{orderProductId,jdbcType=VARCHAR},
+            </if>
+            <if test="orderSize != null">
+                #{orderSize,jdbcType=VARCHAR},
+            </if>
+            <if test="orderEmployeeId != null">
+                #{orderEmployeeId,jdbcType=VARCHAR},
+            </if>
+            <if test="orderMoney != null">
+                #{orderMoney,jdbcType=VARCHAR},
+            </if>
+            <if test="orderNum != null">
+                #{orderNum,jdbcType=VARCHAR},
+            </if>
+            <if test="orderChuNum != null">
+                #{orderChuNum,jdbcType=VARCHAR},
+            </if>
+            <if test="orderPoint != null">
+                #{orderPoint,jdbcType=VARCHAR},
+            </if>
+            <if test="orderSpecId != null">
+                #{orderSpecId,jdbcType=VARCHAR},
+            </if>
+            <if test="orderTransactionId != null">
+                #{orderTransactionId,jdbcType=VARCHAR},
+            </if>
+            <if test="orderIsChujiu != null">
+                #{orderIsChujiu,jdbcType=VARCHAR},
+            </if>
+            <if test="orderStatus != null">
+                #{orderStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="orderCreatetime != null">
+                #{orderCreatetime,jdbcType=VARCHAR},
+            </if>
+            <if test="orderPaytime != null">
+                #{orderPaytime,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.pijiuji.bean.OrderExample" resultType="java.lang.Integer">
+        select count(*) from order
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update order
+        <set>
+            <if test="record.orderId != null">
+                order_id = #{record.orderId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.orderProductId != null">
+                order_product_id = #{record.orderProductId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.orderSize != null">
+                order_size = #{record.orderSize,jdbcType=VARCHAR},
+            </if>
+            <if test="record.orderEmployeeId != null">
+                order_employee_id = #{record.orderEmployeeId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.orderMoney != null">
+                order_money = #{record.orderMoney,jdbcType=VARCHAR},
+            </if>
+            <if test="record.orderNum != null">
+                order_num = #{record.orderNum,jdbcType=VARCHAR},
+            </if>
+            <if test="record.orderNum != null">
+                order_chu_num = #{record.orderChuNum,jdbcType=VARCHAR},
+            </if>
+            <if test="record.orderPoint != null">
+                order_point = #{record.orderPoint,jdbcType=VARCHAR},
+            </if>
+            <if test="record.orderSpecId != null">
+                order_spec_id = #{record.orderSpecId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.orderTransactionId != null">
+                order_transaction_id = #{record.orderTransactionId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.orderIsChujiu != null">
+                order_is_chujiu = #{record.orderIsChujiu,jdbcType=VARCHAR},
+            </if>
+            <if test="record.orderStatus != null">
+                order_status = #{record.orderStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="record.orderCreatetime != null">
+                order_createtime = #{record.orderCreatetime,jdbcType=VARCHAR},
+            </if>
+            <if test="record.orderPaytime != null">
+                order_paytime = #{record.orderPaytime,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update order
+        set order_id = #{record.orderId,jdbcType=VARCHAR},
+        order_product_id = #{record.orderProductId,jdbcType=VARCHAR},
+        order_size = #{record.orderSize,jdbcType=VARCHAR},
+        order_employee_id = #{record.orderEmployeeId,jdbcType=VARCHAR},
+        order_money = #{record.orderMoney,jdbcType=VARCHAR},
+        order_num = #{record.orderNum,jdbcType=VARCHAR},
+        order_chu_num = #{record.orderChuNum,jdbcType=VARCHAR},
+        order_point = #{record.orderPoint,jdbcType=VARCHAR},
+        order_spec_id = #{record.orderSpecId,jdbcType=VARCHAR},
+        order_transaction_id = #{record.orderTransactionId,jdbcType=VARCHAR},
+        order_is_chujiu = #{record.orderIsChujiu,jdbcType=VARCHAR},
+        order_status = #{record.orderStatus,jdbcType=VARCHAR},
+        order_createtime = #{record.orderCreatetime,jdbcType=VARCHAR},
+        order_paytime = #{record.orderPaytime,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.pijiuji.bean.Order">
+        update `order`
+        <set>
+            <if test="orderProductId != null">
+                order_product_id = #{orderProductId,jdbcType=VARCHAR},
+            </if>
+            <if test="orderSize != null">
+                order_size = #{orderSize,jdbcType=VARCHAR},
+            </if>
+            <if test="orderEmployeeId != null">
+                order_employee_id = #{orderEmployeeId,jdbcType=VARCHAR},
+            </if>
+            <if test="orderMoney != null">
+                order_money = #{orderMoney,jdbcType=VARCHAR},
+            </if>
+            <if test="orderNum != null">
+                order_num = #{orderNum,jdbcType=VARCHAR},
+            </if>
+            <if test="orderChuNum != null">
+                order_chu_num = #{orderChuNum,jdbcType=VARCHAR},
+            </if>
+            <if test="orderPoint != null">
+                order_point = #{orderPoint,jdbcType=VARCHAR},
+            </if>
+            <if test="orderSpecId != null">
+                order_spec_id = #{orderSpecId,jdbcType=VARCHAR},
+            </if>
+            <if test="orderTransactionId != null">
+                order_transaction_id = #{orderTransactionId,jdbcType=VARCHAR},
+            </if>
+            <if test="orderIsChujiu != null">
+                order_is_chujiu = #{orderIsChujiu,jdbcType=VARCHAR},
+            </if>
+            <if test="orderStatus != null">
+                order_status = #{orderStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="orderCreatetime != null">
+                order_createtime = #{orderCreatetime,jdbcType=VARCHAR},
+            </if>
+            <if test="orderPaytime != null">
+                order_paytime = #{orderPaytime,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where order_id = #{orderId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.pijiuji.bean.Order">
+    update order
+    set order_product_id = #{orderProductId,jdbcType=VARCHAR},
+      order_size = #{orderSize,jdbcType=VARCHAR},
+      order_employee_id = #{orderEmployeeId,jdbcType=VARCHAR},
+      order_money = #{orderMoney,jdbcType=VARCHAR},
+      order_num = #{orderNum,jdbcType=VARCHAR},
+      order_chu_num = #{orderChuNum,jdbcType=VARCHAR},
+      order_point = #{orderPoint,jdbcType=VARCHAR},
+      order_spec_id = #{orderSpecId,jdbcType=VARCHAR},
+      order_transaction_id = #{orderTransactionId,jdbcType=VARCHAR},
+      order_is_chujiu = #{orderIsChujiu,jdbcType=VARCHAR},
+      order_status = #{orderStatus,jdbcType=VARCHAR},
+      order_createtime = #{orderCreatetime,jdbcType=VARCHAR},
+      order_paytime = #{orderPaytime,jdbcType=VARCHAR}
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </update>
+
+    <select id="selectTongji" parameterType="java.lang.String" resultType="java.util.Map">
+        select order_money as 'money',order_paytime as 'time' from `order` where order_employee_id = #{userOpenid} and order_paytime &gt; #{time} ORDER BY order_paytime desc
+    </select>
+</mapper>

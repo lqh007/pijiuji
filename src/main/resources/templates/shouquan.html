@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+    <script>
+        $(function(){
+            var userOpenid = $("#useropenid").val();
+            // alert("你好");
+            window.location.href="http://www.munihei.net/web/product.html?userOpenid="+userOpenid;
+        })
+    </script>
+</head>
+<body>
+    <input type="hidden" id="useropenid" th:value="${userOpenid}">
+</body>
+</html>

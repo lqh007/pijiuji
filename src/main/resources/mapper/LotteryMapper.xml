@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pijiuji.mapper.LotteryMapper" >
+  <resultMap id="BaseResultMap" type="com.pijiuji.bean.Lottery" >
+    <id column="lottery_id" property="lotteryId" jdbcType="INTEGER" />
+    <result column="lottery_name" property="lotteryName" jdbcType="VARCHAR" />
+    <result column="lottery_gailv" property="lotteryGailv" jdbcType="INTEGER" />
+    <result column="lottery_img" property="lotteryImg" jdbcType="VARCHAR" />
+    <result column="lottery_time" property="lotteryTime" jdbcType="TIMESTAMP" />
+    <result column="lottery_type" property="lotteryType" jdbcType="VARCHAR" />
+    <result column="lottery_typedetail" property="lotteryTypedetail" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    lottery_id, lottery_name, lottery_gailv, lottery_img, lottery_time, lottery_type, 
+    lottery_typedetail
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pijiuji.bean.LotteryExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from lottery
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from lottery
+    where lottery_id = #{lotteryId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from lottery
+    where lottery_id = #{lotteryId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pijiuji.bean.LotteryExample" >
+    delete from lottery
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pijiuji.bean.Lottery" >
+    insert into lottery (lottery_id, lottery_name, lottery_gailv, 
+      lottery_img, lottery_time, lottery_type, 
+      lottery_typedetail)
+    values (#{lotteryId,jdbcType=INTEGER}, #{lotteryName,jdbcType=VARCHAR}, #{lotteryGailv,jdbcType=INTEGER}, 
+      #{lotteryImg,jdbcType=VARCHAR}, #{lotteryTime,jdbcType=TIMESTAMP}, #{lotteryType,jdbcType=VARCHAR}, 
+      #{lotteryTypedetail,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pijiuji.bean.Lottery" >
+    insert into lottery
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lotteryId != null" >
+        lottery_id,
+      </if>
+      <if test="lotteryName != null" >
+        lottery_name,
+      </if>
+      <if test="lotteryGailv != null" >
+        lottery_gailv,
+      </if>
+      <if test="lotteryImg != null" >
+        lottery_img,
+      </if>
+      <if test="lotteryTime != null" >
+        lottery_time,
+      </if>
+      <if test="lotteryType != null" >
+        lottery_type,
+      </if>
+      <if test="lotteryTypedetail != null" >
+        lottery_typedetail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lotteryId != null" >
+        #{lotteryId,jdbcType=INTEGER},
+      </if>
+      <if test="lotteryName != null" >
+        #{lotteryName,jdbcType=VARCHAR},
+      </if>
+      <if test="lotteryGailv != null" >
+        #{lotteryGailv,jdbcType=INTEGER},
+      </if>
+      <if test="lotteryImg != null" >
+        #{lotteryImg,jdbcType=VARCHAR},
+      </if>
+      <if test="lotteryTime != null" >
+        #{lotteryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lotteryType != null" >
+        #{lotteryType,jdbcType=VARCHAR},
+      </if>
+      <if test="lotteryTypedetail != null" >
+        #{lotteryTypedetail,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pijiuji.bean.LotteryExample" resultType="java.lang.Integer" >
+    select count(*) from lottery
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update lottery
+    <set >
+      <if test="record.lotteryId != null" >
+        lottery_id = #{record.lotteryId,jdbcType=INTEGER},
+      </if>
+      <if test="record.lotteryName != null" >
+        lottery_name = #{record.lotteryName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lotteryGailv != null" >
+        lottery_gailv = #{record.lotteryGailv,jdbcType=INTEGER},
+      </if>
+      <if test="record.lotteryImg != null" >
+        lottery_img = #{record.lotteryImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lotteryTime != null" >
+        lottery_time = #{record.lotteryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lotteryType != null" >
+        lottery_type = #{record.lotteryType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lotteryTypedetail != null" >
+        lottery_typedetail = #{record.lotteryTypedetail,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update lottery
+    set lottery_id = #{record.lotteryId,jdbcType=INTEGER},
+      lottery_name = #{record.lotteryName,jdbcType=VARCHAR},
+      lottery_gailv = #{record.lotteryGailv,jdbcType=INTEGER},
+      lottery_img = #{record.lotteryImg,jdbcType=VARCHAR},
+      lottery_time = #{record.lotteryTime,jdbcType=TIMESTAMP},
+      lottery_type = #{record.lotteryType,jdbcType=VARCHAR},
+      lottery_typedetail = #{record.lotteryTypedetail,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pijiuji.bean.Lottery" >
+    update lottery
+    <set >
+      <if test="lotteryName != null" >
+        lottery_name = #{lotteryName,jdbcType=VARCHAR},
+      </if>
+      <if test="lotteryGailv != null" >
+        lottery_gailv = #{lotteryGailv,jdbcType=INTEGER},
+      </if>
+      <if test="lotteryImg != null" >
+        lottery_img = #{lotteryImg,jdbcType=VARCHAR},
+      </if>
+      <if test="lotteryTime != null" >
+        lottery_time = #{lotteryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lotteryType != null" >
+        lottery_type = #{lotteryType,jdbcType=VARCHAR},
+      </if>
+      <if test="lotteryTypedetail != null" >
+        lottery_typedetail = #{lotteryTypedetail,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where lottery_id = #{lotteryId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pijiuji.bean.Lottery" >
+    update lottery
+    set lottery_name = #{lotteryName,jdbcType=VARCHAR},
+      lottery_gailv = #{lotteryGailv,jdbcType=INTEGER},
+      lottery_img = #{lotteryImg,jdbcType=VARCHAR},
+      lottery_time = #{lotteryTime,jdbcType=TIMESTAMP},
+      lottery_type = #{lotteryType,jdbcType=VARCHAR},
+      lottery_typedetail = #{lotteryTypedetail,jdbcType=VARCHAR}
+    where lottery_id = #{lotteryId,jdbcType=INTEGER}
+  </update>
+
+  <select id="select" resultType="java.util.Map">
+        select lottery_id as 'lotteryId',lottery_name as 'lotteryName',lottery_gailv as 'lotteryGailv',lottery_img as 'img',lottery_code as 'code' from lottery;
+    </select>
+
+  <select id="selectLotteryAll" resultType="java.util.Map">
+      select lottery_id as 'lotteryId',lottery_name as 'lotteryName',lottery_gailv as 'gailv',lottery_img as 'img',lottery_time as 'time',lottery_type as 'type',lottery_typedetail as 'detail' from lottery
+  </select>
+
+</mapper>

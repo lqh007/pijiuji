@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pijiuji.mapper.ProPjjMapper" >
+  <resultMap id="BaseResultMap" type="com.pijiuji.bean.ProPjj" >
+    <id column="propjj_id" property="propjjId" jdbcType="VARCHAR" />
+    <result column="propjj_pjj_code" property="propjjPjjCode" jdbcType="VARCHAR" />
+    <result column="propjj_pjj_proid" property="propjjPjjProid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    propjj_id, propjj_pjj_code, propjj_pjj_proid
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pijiuji.bean.ProPjjExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from pro_pjj
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from pro_pjj
+    where propjj_id = #{propjjId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from pro_pjj
+    where propjj_id = #{propjjId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pijiuji.bean.ProPjjExample" >
+    delete from pro_pjj
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pijiuji.bean.ProPjj" >
+    insert into pro_pjj (propjj_id, propjj_pjj_code, propjj_pjj_proid
+      )
+    values (#{propjjId,jdbcType=VARCHAR}, #{propjjPjjCode,jdbcType=VARCHAR}, #{propjjPjjProid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pijiuji.bean.ProPjj" >
+    insert into pro_pjj
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="propjjId != null" >
+        propjj_id,
+      </if>
+      <if test="propjjPjjCode != null" >
+        propjj_pjj_code,
+      </if>
+      <if test="propjjPjjProid != null" >
+        propjj_pjj_proid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="propjjId != null" >
+        #{propjjId,jdbcType=VARCHAR},
+      </if>
+      <if test="propjjPjjCode != null" >
+        #{propjjPjjCode,jdbcType=VARCHAR},
+      </if>
+      <if test="propjjPjjProid != null" >
+        #{propjjPjjProid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pijiuji.bean.ProPjjExample" resultType="java.lang.Integer" >
+    select count(*) from pro_pjj
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update pro_pjj
+    <set >
+      <if test="record.propjjId != null" >
+        propjj_id = #{record.propjjId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.propjjPjjCode != null" >
+        propjj_pjj_code = #{record.propjjPjjCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.propjjPjjProid != null" >
+        propjj_pjj_proid = #{record.propjjPjjProid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update pro_pjj
+    set propjj_id = #{record.propjjId,jdbcType=VARCHAR},
+      propjj_pjj_code = #{record.propjjPjjCode,jdbcType=VARCHAR},
+      propjj_pjj_proid = #{record.propjjPjjProid,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pijiuji.bean.ProPjj" >
+    update pro_pjj
+    <set >
+      <if test="propjjPjjCode != null" >
+        propjj_pjj_code = #{propjjPjjCode,jdbcType=VARCHAR},
+      </if>
+      <if test="propjjPjjProid != null" >
+        propjj_pjj_proid = #{propjjPjjProid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where propjj_id = #{propjjId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pijiuji.bean.ProPjj" >
+    update pro_pjj
+    set propjj_pjj_code = #{propjjPjjCode,jdbcType=VARCHAR},
+      propjj_pjj_proid = #{propjjPjjProid,jdbcType=VARCHAR}
+    where propjj_id = #{propjjId,jdbcType=VARCHAR}
+  </update>
+</mapper>

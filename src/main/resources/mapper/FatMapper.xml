@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pijiuji.mapper.FatMapper" >
+  <resultMap id="BaseResultMap" type="com.pijiuji.bean.Fat" >
+    <id column="fat_id" property="fatId" jdbcType="VARCHAR" />
+    <result column="fat_product_id" property="fatProductId" jdbcType="VARCHAR" />
+    <result column="fat_status" property="fatStatus" jdbcType="VARCHAR" />
+    <result column="fat_num" property="fatNum" jdbcType="VARCHAR" />
+    <result column="fat_time" property="fatTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    fat_id, fat_product_id, fat_status, fat_num, fat_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pijiuji.bean.FatExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from fat
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from fat
+    where fat_id = #{fatId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from fat
+    where fat_id = #{fatId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pijiuji.bean.FatExample" >
+    delete from fat
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pijiuji.bean.Fat" >
+    insert into fat (fat_id, fat_product_id, fat_status, 
+      fat_num, fat_time)
+    values (#{fatId,jdbcType=VARCHAR}, #{fatProductId,jdbcType=VARCHAR}, #{fatStatus,jdbcType=VARCHAR}, 
+      #{fatNum,jdbcType=VARCHAR}, #{fatTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pijiuji.bean.Fat" >
+    insert into fat
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fatId != null" >
+        fat_id,
+      </if>
+      <if test="fatProductId != null" >
+        fat_product_id,
+      </if>
+      <if test="fatStatus != null" >
+        fat_status,
+      </if>
+      <if test="fatNum != null" >
+        fat_num,
+      </if>
+      <if test="fatTime != null" >
+        fat_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fatId != null" >
+        #{fatId,jdbcType=VARCHAR},
+      </if>
+      <if test="fatProductId != null" >
+        #{fatProductId,jdbcType=VARCHAR},
+      </if>
+      <if test="fatStatus != null" >
+        #{fatStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="fatNum != null" >
+        #{fatNum,jdbcType=VARCHAR},
+      </if>
+      <if test="fatTime != null" >
+        #{fatTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pijiuji.bean.FatExample" resultType="java.lang.Integer" >
+    select count(*) from fat
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update fat
+    <set >
+      <if test="record.fatId != null" >
+        fat_id = #{record.fatId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fatProductId != null" >
+        fat_product_id = #{record.fatProductId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fatStatus != null" >
+        fat_status = #{record.fatStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fatNum != null" >
+        fat_num = #{record.fatNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fatTime != null" >
+        fat_time = #{record.fatTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update fat
+    set fat_id = #{record.fatId,jdbcType=VARCHAR},
+      fat_product_id = #{record.fatProductId,jdbcType=VARCHAR},
+      fat_status = #{record.fatStatus,jdbcType=VARCHAR},
+      fat_num = #{record.fatNum,jdbcType=VARCHAR},
+      fat_time = #{record.fatTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pijiuji.bean.Fat" >
+    update fat
+    <set >
+      <if test="fatProductId != null" >
+        fat_product_id = #{fatProductId,jdbcType=VARCHAR},
+      </if>
+      <if test="fatStatus != null" >
+        fat_status = #{fatStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="fatNum != null" >
+        fat_num = #{fatNum,jdbcType=VARCHAR},
+      </if>
+      <if test="fatTime != null" >
+        fat_time = #{fatTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where fat_id = #{fatId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pijiuji.bean.Fat" >
+    update fat
+    set fat_product_id = #{fatProductId,jdbcType=VARCHAR},
+      fat_status = #{fatStatus,jdbcType=VARCHAR},
+      fat_num = #{fatNum,jdbcType=VARCHAR},
+      fat_time = #{fatTime,jdbcType=TIMESTAMP}
+    where fat_id = #{fatId,jdbcType=VARCHAR}
+  </update>
+</mapper>
