@@ -24,6 +24,7 @@ public class FatServiceImpl implements FatService {
     @Autowired
     private FatMapper fatMapper;
 
+
     @Autowired
     private ProductMapper productMapper;
     @Override
