@@ -102,11 +102,17 @@ public class WeixinPayServiceImpl implements WeixinPayService {
             if (StringUtils.isEmpty(resultMap.get("code_url"))) {
                 throw new ServiceException("网络异常,请重试");
             }
+            Order order = new Order();
             //获取兑换码
             String cdKey = request.getParameter("cdKey");
+            int r = 0;
             if (StringUtils.isNotEmpty(cdKey)) {
                 //根据兑换码查询奖品
                 UserLottery userLottery = userLotteryMapper.findUserLottery(cdKey);
+                if(userLottery.getUlLotteryType().equals("1")){
+                    order.setOrderTransactionId(userLottery.getUlLotteryDetail());
+                    r = 1;
+                }
                 userLottery.setUlStatus("1");
                 userLotteryMapper.updateByPrimaryKeySelective(userLottery);
             }
@@ -114,16 +120,18 @@ public class WeixinPayServiceImpl implements WeixinPayService {
             result.put("code_url", resultMap.get("code_url"));//支付地址
             result.put("total_fee", money);//总金额
             result.put("out_trade_no", out_trade_no);//订单号
-            Order order = new Order();
             order.setOrderId(out_trade_no);
             order.setOrderProductId(productId);
             order.setOrderSize(productSize);
             order.setOrderEmployeeId(employeeId);
             order.setOrderMoney(money);
-            order.setOrderNum(num);
+            if(r == 1){
+                order.setOrderNum(Integer.valueOf(num)+1+"");
+            }else{
+                order.setOrderNum(num);
+            }
             order.setOrderPoint(point);
             order.setOrderSpecId(specId);
-            order.setOrderTransactionId("");
             order.setOrderIsChujiu("0");
             order.setOrderStatus("0");
             order.setOrderCreatetime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
@@ -170,7 +178,7 @@ public class WeixinPayServiceImpl implements WeixinPayService {
             order.setOrderStatus("1");
             order.setOrderPaytime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
             order.setOrderId(out_trade_no);
-            order.setOrderTransactionId(transaction_id);
+//            order.setOrderTransactionId(transaction_id);
             int i = orderMapper.updateByPrimaryKeySelective(order);
             if (i <= 0) {
                 responseResult = fail(xmlStr);
