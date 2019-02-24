@@ -5,7 +5,7 @@
       select level_user_id AS 'leverUserId' FROM level_user  WHERE level_user_id = #{levelUserOpenid}
     </select>
     <select id="findOrderById" parameterType="java.util.HashMap" resultType="java.util.Map">
-        select p.product_id as 'productId',p.product_name as 'productName',o.order_id as 'orderId',o.order_size as 'size',o.order_money as 'money',o.order_num as 'num',o.order_chu_num as 'chuNum',o.order_point as 'point' from `order` o inner join product p on o.order_product_id = p.product_id WHERE order_employee_id = #{employeeId} AND order_is_chujiu = #{orderIsChujiu}
+        select p.product_id as 'productId',p.product_name as 'productName',o.order_id as 'orderId',o.order_size as 'size',o.order_money as 'money',o.order_num as 'num',o.order_chu_num as 'chuNum',o.order_point as 'point',o.order_transaction_id as 'sss' from `order` o inner join product p on o.order_product_id = p.product_id WHERE order_employee_id = #{employeeId} AND order_is_chujiu = #{orderIsChujiu}
     </select>
     <update id="updateOrder" parameterType="com.pijiuji.bean.Order">
         update `order` set order_num = #{orderNum}  where order_id  = #{orderId};
