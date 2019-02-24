@@ -57,6 +57,23 @@ public class GuanliServiceImpl implements GuanliService {
         result.put("employeeId", employeeId);
         result.put("orderIsChujiu", "0");
         List<Map<String,String>> order = guanliMapper.findOrderById(result);
+        for (Map<String, String> stringStringMap : order) {
+            Integer chuNum = Integer.valueOf(stringStringMap.get("chuNum"));
+            Integer num = Integer.valueOf(stringStringMap.get("num"));
+            stringStringMap.put("chuNum",num-chuNum+"");
+            Integer size = Integer.valueOf(stringStringMap.get("size"));
+            String sss = stringStringMap.get("sss");
+            if(StringUtils.isNotEmpty(sss) && num-chuNum != 1){
+                int i = Integer.valueOf(size-Integer.valueOf(sss)) / (num - 1);
+                stringStringMap.put("num",i+"");
+            }else if(StringUtils.isNotEmpty(sss) && num-chuNum == 1){
+                stringStringMap.put("num",sss);
+            }else{
+                stringStringMap.put("num",size/num+"");
+            }
+            stringStringMap.remove("sss");
+
+        }
         return new ResponseResult(200, "查询成功", order);
     }
 
