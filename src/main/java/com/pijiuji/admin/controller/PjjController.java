@@ -43,4 +43,13 @@ public class PjjController {
     public ResponseResult updatePjj(HttpServletRequest request){
         return pjjService.updatePjj(request);
     }
+
+    /**
+     * 查询全部用户
+     */
+    @GetMapping("findPjj")
+    public ResponseResult findPjj(HttpServletRequest request){
+        return pjjService.findPjj(request);
+    }
+
 }
