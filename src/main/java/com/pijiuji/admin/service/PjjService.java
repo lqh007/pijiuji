@@ -25,4 +25,11 @@ public interface PjjService {
      * @return
      */
     ResponseResult updatePjj(HttpServletRequest request);
+
+    /**
+     * 查询全部啤酒机
+     * @param request
+     * @return
+     */
+    ResponseResult findPjj(HttpServletRequest request);
 }
