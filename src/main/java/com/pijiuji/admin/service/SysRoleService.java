@@ -20,6 +20,13 @@ public interface SysRoleService {
     ResponseResult findSysRole(HttpServletRequest request);
 
     /**
+     * 查询角色拥有的菜单权限
+     * @param request
+     * @return
+     */
+    ResponseResult selectSysRolePermis(HttpServletRequest request);
+
+    /**
      * 修改角色权限
      * @param request
      * @return

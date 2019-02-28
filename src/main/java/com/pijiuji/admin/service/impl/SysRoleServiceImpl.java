@@ -8,6 +8,7 @@ import com.pijiuji.mapper.SysRolePermissionMapper;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sun.swing.StringUIClientPropertyKey;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -56,6 +57,27 @@ public class SysRoleServiceImpl implements SysRoleService {
         sysRoleExample.createCriteria();
         List<SysRole> sysRoles = sysRoleMapper.selectByExample(sysRoleExample);
         return new ResponseResult(200,"查询成功",sysRoles);
+    }
+
+    @Override
+    public ResponseResult selectSysRolePermis(HttpServletRequest request) {
+        String roleId = request.getParameter("roleId");
+        if(StringUtils.isEmpty(roleId)){
+            return new ResponseResult(500,"角色id不允许为空");
+        }
+        SysRolePermissionExample sysRolePermissionExample = new SysRolePermissionExample();
+        SysRolePermissionExample.Criteria criteria = sysRolePermissionExample.createCriteria();
+        criteria.andSysRoleIdEqualTo(Integer.valueOf(roleId));
+        ArrayList<SysRolePermission> sysRolePermissions1 = new ArrayList<>();
+        List<SysRolePermission> sysRolePermissions = sysRolePermissionMapper.selectByExample(sysRolePermissionExample);
+        for (SysRolePermission sysRolePermission : sysRolePermissions) {
+            Integer sysPermissionId = sysRolePermission.getSysPermissionId();
+            SysPermission sysPermission = sysPermissionMapper.selectByPrimaryKey(Integer.valueOf(sysPermissionId));
+            if(StringUtils.isNotEmpty(sysPermission.getParentid()+"")){
+                sysRolePermissions1.add(sysRolePermission);
+            }
+        }
+        return new ResponseResult(200,"查询成功",sysRolePermissions1);
     }
 
     @Override

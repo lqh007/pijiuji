@@ -2,9 +2,89 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>领取</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        body{
+            background: rgba(255, 153, 4, 0.1);
+        }
+        .coupon {
+            width: 90%;
+            height: 100px;
+            display: block;
+            margin: 0 auto;
+            border-radius: 5px;
+            overflow: hidden;
+            background: #f50;
+            position: relative;
+        }
+
+        .coupon > div {
+            float: left;
+            height: 100%;
+            box-sizing: border-box;
+            /*display: flex;*/
+            justify-content: center;
+            color: #fff;
+            flex-direction: column;
+        }
+
+        .coupon .couponL {
+            width: 70%;
+            padding-left: 10px;
+        }
+
+        .coupon .couponR {
+            align-items: center;
+            width: 30%;
+            border-left: 1px dashed #666;
+        }
+
+        .coupon .round {
+            width: 20px;
+            height: 10px;
+            background: #fff;
+            position: absolute;
+            left: 50%;
+            transform: translate(280%,0%);
+        }
+        .coupon .roundT{
+            bottom: 0;
+            border-radius: 20px 20px 0 0;
+        }
+        .coupon .roundB{
+            top: 0;
+            border-radius:  0 0 20px 20px;
+        }
+    </style>
 </head>
 <body>
-<h1 th:text="${message}"></h1>
+<div>
+    <ui>
+        <li class="coupon">
+            <span class="round roundT"></span>
+            <span class="round roundB"></span>
+            <div class="couponL">
+                <div style="margin-top: 25px;"><img th:src="${img}" width="50px" height="50px" style="float: left;display: inline-block;"/></div>
+                <div style="margin-top: 25px;" th:text="${lotteryName}" style="float: left;">三元优惠卷</div>
+                兑换码：<i th:text="${cdKey}">JJOJOIND</i>
+            </div>
+            <div class="couponR" style="display: flex;">
+                <div th:text="${message}">立即领取</div>
+                <div th:if="${status == 1}">
+                    请妥善保管兑换码！
+                </div>
+                <div th:if="${status == 0}">
+                    领取异常！
+                </div>
+            </div>
+        </li>
+    </ui>
+</div>
 </body>
 </html>

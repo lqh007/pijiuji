@@ -18,6 +18,8 @@ public interface OrderMapper {
 
     int insertSelective(Order record);
 
+    List<Order> selectAll();
+
     List<Order> selectByExample(OrderExample example);
 
     Order selectByPrimaryKey(String orderId);

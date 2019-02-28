@@ -31,9 +31,7 @@ public class OrderServiceImpl implements OrderService {
 
         String page = request.getParameter("page");
         PageHelper.startPage(Integer.valueOf(page), Param.pageSize);
-        OrderExample orderExample = new OrderExample();
-        orderExample.createCriteria();
-        List<Order> orders = orderMapper.selectByExample(orderExample);
+        List<Order> orders = orderMapper.selectAll();
         for (int i = 0; i < orders.size(); i++) {
             String orderStatus = orders.get(i).getOrderStatus();
             if ("0".equals(orderStatus)) {

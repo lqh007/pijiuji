@@ -40,4 +40,16 @@ public class SysRoleController {
     public ResponseResult updateSysRole(HttpServletRequest request){
         return sysRoleService.updateSysRole(request);
     }
+
+    /**
+     * 查询角色拥有的权限
+     */
+    @PostMapping("selectSysRolePermis")
+    @ResponseBody
+    public ResponseResult selectSysRolePermis(HttpServletRequest request){
+        return sysRoleService.selectSysRolePermis(request);
+    }
+
+
+
 }

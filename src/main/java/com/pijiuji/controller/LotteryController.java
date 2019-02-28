@@ -3,7 +3,9 @@ package com.pijiuji.controller;
 import com.github.sd4324530.fastweixin.api.OauthAPI;
 import com.github.sd4324530.fastweixin.api.config.ApiConfig;
 import com.github.sd4324530.fastweixin.api.enums.OauthScope;
+import com.pijiuji.bean.Lottery;
 import com.pijiuji.bean.ResponseResult;
+import com.pijiuji.mapper.LotteryMapper;
 import com.pijiuji.service.LotteryService;
 import com.pijiuji.service.exception.ServiceException;
 import com.pijiuji.util.Param;
@@ -26,6 +28,8 @@ import java.util.Map;
 @RequestMapping("/lottery")
 public class LotteryController {
 
+    @Autowired
+    private LotteryMapper lotteryMapper;
     @Autowired
     private LotteryService lotteryServiceImpl;
     public static final ApiConfig apiConfig = new ApiConfig (Param.APPID, Param.APPSECRET,true);
@@ -94,12 +98,19 @@ public class LotteryController {
 
     @RequestMapping(value = "/getUserInfo", method = RequestMethod.GET)
     public String getUserInfo(String code, String state, Model model) {
+        Map<String, String> userInfo = null;
+        Lottery lottery = lotteryMapper.selectByPrimaryKey(Integer.valueOf(state.split("/")[1]));
         try {
-            lotteryServiceImpl.getUserInfo(apiConfig,code,state);
+            userInfo = lotteryServiceImpl.getUserInfo(apiConfig, code, state);
             model.addAttribute("message","领取成功");
+            model.addAttribute("status","1");
         } catch (ServiceException e) {
             model.addAttribute("message",e.getMessage());
+            model.addAttribute("status","0");
         }
-            return "success";
+        model.addAttribute("lotteryName",lottery.getLotteryName());
+        model.addAttribute("img",address+lottery.getLotteryImg());
+        model.addAttribute("cdKey",state.split("/")[0]);
+        return "success";
     }
 }

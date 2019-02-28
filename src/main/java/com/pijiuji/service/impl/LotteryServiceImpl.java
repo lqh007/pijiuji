@@ -7,6 +7,7 @@ import com.github.sd4324530.fastweixin.api.response.OauthGetTokenResponse;
 import com.pijiuji.bean.Lottery;
 import com.pijiuji.bean.User;
 import com.pijiuji.bean.UserLottery;
+import com.pijiuji.bean.UserLotteryExample;
 import com.pijiuji.mapper.LotteryMapper;
 import com.pijiuji.mapper.UserLotteryMapper;
 import com.pijiuji.mapper.UserMapper;
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -71,7 +73,7 @@ public class LotteryServiceImpl implements LotteryService {
      * @param state
      */
     @Override
-    public void getUserInfo(ApiConfig apiConfig, String code, String state) {
+    public Map<String, String> getUserInfo(ApiConfig apiConfig, String code, String state) {
         String accessToken = apiConfig.getAccessToken();
         System.err.println(accessToken);
         OauthAPI oauthAPI = new OauthAPI(apiConfig);
@@ -102,16 +104,28 @@ public class LotteryServiceImpl implements LotteryService {
             userMapper.insertSelective(u);
         }
         String[] split = state.split("/");
+        Lottery lottery = lotteryMapper.selectByPrimaryKey(Integer.valueOf(split[1]));
         //查询该优惠卷是否被绑定
         Integer i = userLotteryMapper.selectUserIsLottery(split[0]);
         if(i > 0){
             throw new ServiceException("该优惠券已被领取");
         }
-        Lottery lottery = lotteryMapper.selectByPrimaryKey(Integer.valueOf(split[1]));
         //进行绑定
         /**
          *   `ul_status` varchar(5) NOT NULL COMMENT '是否已使用(0未使用  1已使用)',
          */
+        //查询用户当前所有拥有过的优惠卷
+        UserLotteryExample userLotteryExample = new UserLotteryExample();
+        UserLotteryExample.Criteria criteria = userLotteryExample.createCriteria();
+        criteria.andUlUserOpenidEqualTo(openid);
+        List<UserLottery> userLotteries = userLotteryMapper.selectByExample(userLotteryExample);
+        if(userLotteries!= null && userLotteries.size() > 0){
+            for (UserLottery userLottery : userLotteries) {
+                if(userLottery.getUlStatus().equals("0")){
+                    throw new ServiceException("您还有未使用的优惠卷,领取失败！");
+                }
+            }
+        }
         UserLottery ul = new UserLottery();
         String replace = UUID.randomUUID().toString().replace("-", "");
         ul.setUlId(replace);
@@ -124,8 +138,13 @@ public class LotteryServiceImpl implements LotteryService {
         ul.setUlCdkey(split[0]);
         int j = userLotteryMapper.insertSelective(ul);
         if(j <= 0){
-            throw new ServiceException("领取失败");
+            throw new ServiceException("领取失败！");
         }
+        Map<String, String> map = new HashMap<>();
+        map.put("lotteryName",lottery.getLotteryName());
+        map.put("img",address+lottery.getLotteryImg());
+        map.put("cdKey",split[0]);
+        return map;
     }
 
     /**

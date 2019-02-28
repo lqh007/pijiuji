@@ -80,6 +80,9 @@ public class PcShopSpecServiceImpl implements PcShopSpecService {
         if(StringUtils.isEmpty(price)){
             throw new ServiceException("价格不允许为空");
         }
+        if(Double.valueOf(price) >= 5 && Double.valueOf(price) <= 50){
+            throw new ServiceException("请设置价格范围请在5~50之间");
+        }
         ShopSpecification shopSpecification = shopSpecificationMapper.selectByPrimaryKey(Integer.valueOf(id));
         shopSpecification.setUpdateTime(DateUtil.getCurrentTimeS2());
         shopSpecification.setPrice(price);

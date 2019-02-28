@@ -21,7 +21,7 @@ public interface LotteryService {
      * @param code
      * @param state
      */
-    void getUserInfo(ApiConfig apiConfig, String code, String state);
+    Map<String,String> getUserInfo(ApiConfig apiConfig, String code, String state);
 
     /**
      * 查询所有奖品
