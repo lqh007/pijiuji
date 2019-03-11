@@ -22,6 +22,13 @@ public interface LeverUserService {
     ResponseResult findLeverUserByStatus(HttpServletRequest request);
 
     /**
+     * 搜索后台用户列表
+     * @param request
+     * @return
+     */
+    ResponseResult searchUserByStatus(HttpServletRequest request);
+
+    /**
      * 审核用户
      * @param request
      * @return

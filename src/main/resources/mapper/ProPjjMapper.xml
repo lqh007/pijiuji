@@ -178,4 +178,13 @@
       propjj_pjj_proid = #{propjjPjjProid,jdbcType=VARCHAR}
     where propjj_id = #{propjjId,jdbcType=VARCHAR}
   </update>
+
+  <select id="selectPjjProductByPjjCode" parameterType="java.lang.String" resultType="java.util.Map">
+    select product_id as 'productId',product_name as 'productName' from pro_pjj inner join product on propjj_pjj_proid = product_id where propjj_pjj_code = #{propjjPjjCode}
+  </select>
+
+  <delete id="deletePjjProductByPjjCode" parameterType="java.lang.String">
+    delete from pro_pjj where propjj_pjj_code = #{propjjPjjCode}
+  </delete>
+
 </mapper>

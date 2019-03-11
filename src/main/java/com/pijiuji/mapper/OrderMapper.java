@@ -18,6 +18,8 @@ public interface OrderMapper {
 
     int insertSelective(Order record);
 
+    List<Order> searchOrder(@Param("orderId") String orderId,@Param("orderStatus") String orderStatus,@Param("startTime") String startTime,@Param("endTime") String endTime);
+
     List<Order> selectAll();
 
     List<Order> selectByExample(OrderExample example);

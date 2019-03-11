@@ -407,4 +407,27 @@
           </where>
     </select>
 
+    <select id="searchUserByStatus" parameterType="java.lang.String" resultType="com.pijiuji.bean.LevelUser">
+        select * from level_user
+        <where>
+            level_user_level = #{levelUser}
+            <if test="name != null and '' != name ">
+                AND level_user_name LIKE '%${name}%'
+            </if>
+            <if test="phone != null and '' != phone ">
+                AND level_user_phone LIKE '%${phone}%'
+            </if>
+            <if test="isJin != null and '' != isJin ">
+                AND level_user_status = #{isJin}
+            </if>
+            <if test="status != null and '' != status">
+                AND level_user_apply_status = #{status}
+            </if>
+            <if test="address != null and '' != address">
+                AND level_user_address like #{address}
+            </if>
+        </where>
+        order by level_user_time desc
+    </select>
+
 </mapper>

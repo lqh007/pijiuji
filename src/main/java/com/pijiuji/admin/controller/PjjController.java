@@ -27,6 +27,25 @@ public class PjjController {
     public ResponseResult findAdminAllPjj(HttpServletRequest request){
         return pjjService.findAdminAllPjj(request);
     }
+    /**
+     * 查询啤酒机上展示的商品
+     * @param request
+     * @return
+     */
+    @RequestMapping("/product")
+    public ResponseResult product(HttpServletRequest request){
+        return pjjService.product(request);
+    }
+
+    /**
+     * 机器分配啤酒
+     * @param request
+     * @return
+     */
+    @RequestMapping("/allocation")
+    public ResponseResult allocation(HttpServletRequest request){
+        return pjjService.allocation(request);
+    }
 
     /**
      * 添加啤酒机
@@ -50,15 +69,6 @@ public class PjjController {
     @GetMapping("findPjj")
     public ResponseResult findPjj(HttpServletRequest request){
         return pjjService.findPjj(request);
-
-    }
-
-    /**
-     * 搜索啤酒机
-     */
-    @GetMapping("searchPjj")
-    public ResponseResult searchPjj(HttpServletRequest request){
-        return pjjService.searchPjj(request);
     }
 
 }

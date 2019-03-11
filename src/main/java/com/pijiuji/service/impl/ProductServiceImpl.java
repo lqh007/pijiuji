@@ -48,8 +48,10 @@ public class ProductServiceImpl implements ProductService {
      */
     @Override
     public ResponseResult<Object> findProductById(String systemNumber) {
+        if(StringUtils.isEmpty(systemNumber)){
+            return new ResponseResult<>(500,"机器编号不允许为空");
+        }
         Map result = new HashMap();
-
         //查询每个机器下的商品
         ProPjjExample proPjjExample = new ProPjjExample();
         ProPjjExample.Criteria criteria = proPjjExample.createCriteria();

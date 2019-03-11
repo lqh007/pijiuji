@@ -15,8 +15,19 @@ public class OrderController {
 
     @Autowired
     private OrderService orderService;
+
     @GetMapping("findAllOrder")
-    public ResponseResult findAllOrder(HttpServletRequest request){
+    public ResponseResult findAllOrder(HttpServletRequest request) {
         return orderService.findAllOrder(request);
+    }
+
+    /**
+     * 订单搜索
+     * @param request
+     * @return
+     */
+    @RequestMapping("searchOrder")
+    public ResponseResult searchOrder(HttpServletRequest request) {
+        return orderService.searchOrder(request);
     }
 }

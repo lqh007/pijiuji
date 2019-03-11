@@ -362,4 +362,23 @@
         select * from `order` order by order_createtime desc
     </select>
 
+    <select id="searchOrder" parameterType="java.lang.String" resultType="com.pijiuji.bean.Order">
+        select * from `order`
+        <where>
+            <if test="orderId != null and orderId != ''">
+               and order_id = #{orderId}
+            </if>
+            <if test="orderStatus != null and orderStatus != ''">
+                and order_status = #{orderStatus}
+            </if>
+            <if test="startTime != null and startTime != ''">
+                and order_createtime &gt; #{startTime}
+            </if>
+            <if test="endTime != null and endTime != ''">
+                and order_createtime &lt; #{endTime}
+            </if>
+        </where>
+         order by order_createtime desc
+    </select>
+
 </mapper>

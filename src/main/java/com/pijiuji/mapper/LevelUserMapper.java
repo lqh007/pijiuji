@@ -25,6 +25,18 @@ public interface LevelUserMapper {
 
     int insertSelective(LevelUser record);
 
+    /**
+     * 根据条件进行搜索
+     * @param levelUserLevel
+     * @param name
+     * @param phone
+     * @param address
+     * @param status
+     * @param isJin
+     * @return
+     */
+    List<LevelUser> searchUserByStatus(@Param("levelUser") String levelUserLevel,@Param("name") String name,@Param("phone") String phone,@Param("address") String address,@Param("status") String status,@Param("isJin") String isJin);
+
     List<LevelUser> selectByExample(LevelUserExample example);
 
     LevelUser selectByPrimaryKey(String levelUserId);

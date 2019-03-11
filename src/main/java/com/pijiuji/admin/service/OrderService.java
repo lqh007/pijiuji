@@ -11,4 +11,11 @@ public interface OrderService {
      * @return
      */
     ResponseResult findAllOrder(HttpServletRequest request);
+
+    /**
+     * 订单查询
+     * @param request
+     * @return
+     */
+    ResponseResult searchOrder(HttpServletRequest request);
 }

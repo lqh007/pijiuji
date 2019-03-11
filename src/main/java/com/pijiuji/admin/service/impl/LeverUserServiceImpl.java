@@ -114,6 +114,33 @@ public class LeverUserServiceImpl implements LeverUserService {
     }
 
     /**
+     * 0城市创始人  1城市合作伙伴 2终端店  3服务推广员
+     * 搜索后台用户列表
+     * @param request
+     * @return
+     */
+    @Override
+    public ResponseResult searchUserByStatus(HttpServletRequest request) {
+        String levelUserLevel = request.getParameter("levelUserLevel");
+        if (StringUtils.isEmpty(levelUserLevel)) {
+            return new ResponseResult(500, "级别不能为空");
+        }
+        String page = request.getParameter("page");
+        if (StringUtils.isEmpty(page)) {
+            page = "1";
+        }
+        String name = request.getParameter("name");
+        String phone = request.getParameter("phone");
+        String address = request.getParameter("address");
+        String status = request.getParameter("status");
+        String isJin = request.getParameter("isJin");
+        PageHelper.startPage(Integer.valueOf(page), Param.pageSize);
+        List<LevelUser> levelUsers = levelUserMapper.searchUserByStatus(levelUserLevel,name,phone,address,status,isJin);
+        PageInfo pageInfo = replaceLevelUsers(levelUsers);
+        return new ResponseResult(200, "搜索成功", pageInfo);
+    }
+
+    /**
      * 审核用户
      *
      * @param request

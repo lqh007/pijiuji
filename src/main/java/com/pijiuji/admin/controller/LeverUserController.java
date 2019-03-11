@@ -37,6 +37,16 @@ public class LeverUserController {
     }
 
     /**
+     * 0城市创始人  1城市合作伙伴 2终端店  3服务推广员
+     * 搜索后台用户列表
+     */
+
+    @RequestMapping("searchUserByStatus")
+    public ResponseResult searchUserByStatus(HttpServletRequest request){
+        return leverUserService.searchUserByStatus(request);
+    }
+
+    /**
      * 审核用户
      */
     @PostMapping("updatelevelUserApplyStatus")
