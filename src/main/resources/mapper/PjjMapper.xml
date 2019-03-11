@@ -241,4 +241,19 @@
     <select id="selectPjjIdAll" resultType="com.pijiuji.bean.Pjj">
         select * from pjj
     </select>
+
+    <select id="searchPjj" resultType="com.pijiuji.bean.Pjj" parameterType="com.pijiuji.bean.Pjj">
+        select * from pjj
+          <where>
+              <if test="pjjCode != null and '' != pjjCode ">
+                AND  pjj_code LIKE '%${pjjCode}%'
+              </if>
+              <if test="pjjAddress != null and '' != pjjAddress ">
+                AND pjj_address LIKE '%${pjjAddress}%'
+              </if>
+              <if test="pjjStatus != null and '' != pjjStatus ">
+                AND pjj_status LIKE '%${pjjStatus}%'
+              </if>
+          </where>
+    </select>
 </mapper>
