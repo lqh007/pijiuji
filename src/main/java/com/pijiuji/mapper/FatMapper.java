@@ -28,4 +28,6 @@ public interface FatMapper {
     int updateByPrimaryKeySelective(Fat record);
 
     int updateByPrimaryKey(Fat record);
+
+    List<Fat> searchFat(Fat fat);
 }
