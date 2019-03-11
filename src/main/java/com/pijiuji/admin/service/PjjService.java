@@ -32,4 +32,11 @@ public interface PjjService {
      * @return
      */
     ResponseResult findPjj(HttpServletRequest request);
+
+    /**
+     * 分配啤酒机
+     * @param request
+     * @return
+     */
+    ResponseResult searchPjj(HttpServletRequest request);
 }

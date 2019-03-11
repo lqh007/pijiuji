@@ -208,4 +208,18 @@
       fat_time = #{fatTime,jdbcType=TIMESTAMP}
     where fat_id = #{fatId,jdbcType=VARCHAR}
   </update>
+  <select id="searchFat" parameterType="com.pijiuji.bean.Fat" resultType="com.pijiuji.bean.Fat">
+    select * from fat
+    <where>
+      <if test="fatId != null and '' != fatId">
+        AND fat_id LIKE '%${fatId}%'
+      </if>
+      <if test="fatProductId != null and '' != fatProductId ">
+        AND fat_product_id LIKE '%${fatProductId}%'
+      </if>
+      <if test="fatStatus != null and '' != fatStatus ">
+        AND fat_status LIKE '%${fatStatus}%'
+      </if>
+    </where>
+  </select>
 </mapper>
