@@ -1,12 +1,11 @@
 package com.pijiuji.service.impl;
 
-import com.pijiuji.VideoService;
+import com.pijiuji.service.VideoService;
 import com.pijiuji.bean.ResponseResult;
 import com.pijiuji.bean.Video;
 import com.pijiuji.bean.VideoExample;
 import com.pijiuji.mapper.VideoMapper;
 import com.pijiuji.util.CollectionUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -40,5 +39,14 @@ public class VideoServiceImpl implements VideoService{
         responseResult.setState(1);
         responseResult.setMessage("修改失败!");
         return responseResult;
+    }
+
+    @Override
+    public Map<String, Object> getVideo() {
+        Map<String,Object> res = new HashMap<>();
+        VideoExample videoExample = new  VideoExample();
+        List<Video> videos = videoMapper.selectByExample(videoExample);
+        res.put("video",videos.get(0));
+        return res;
     }
 }

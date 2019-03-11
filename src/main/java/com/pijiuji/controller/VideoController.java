@@ -1,6 +1,6 @@
 package com.pijiuji.controller;
 
-import com.pijiuji.VideoService;
+import com.pijiuji.service.VideoService;
 import com.pijiuji.bean.FileEntity;
 import com.pijiuji.bean.ResponseResult;
 import com.pijiuji.util.FileUploadTool;
@@ -46,4 +46,9 @@ public class VideoController {
         return videoService.updateVideo(entity.getPath());
     }
 
+    @RequestMapping(value = "/getVideo", method={RequestMethod.GET})
+    @ApiOperation("修改视频")
+    public Map<String,Object> getVideo(){
+        return videoService.getVideo();
+    }
 }
