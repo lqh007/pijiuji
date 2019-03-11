@@ -49,4 +49,6 @@ public interface PjjMapper {
      * @return
      */
     int updatePjjAddress(@Param("pjjCode") String pjjCode,@Param("pjjAddress") String address);
+
+    List<Pjj> searchPjj(Pjj pjj);
 }
