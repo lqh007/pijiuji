@@ -33,4 +33,11 @@ public interface FatService {
      * @return
      */
     ResponseResult deleteFat(String fatId);
+
+    /**
+     * 搜索酒桶
+     * @param request
+     * @return
+     */
+    ResponseResult searchFat(HttpServletRequest request);
 }

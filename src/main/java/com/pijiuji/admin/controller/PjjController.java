@@ -50,6 +50,15 @@ public class PjjController {
     @GetMapping("findPjj")
     public ResponseResult findPjj(HttpServletRequest request){
         return pjjService.findPjj(request);
+
+    }
+
+    /**
+     * 搜索啤酒机
+     */
+    @GetMapping("searchPjj")
+    public ResponseResult searchPjj(HttpServletRequest request){
+        return pjjService.searchPjj(request);
     }
 
 }

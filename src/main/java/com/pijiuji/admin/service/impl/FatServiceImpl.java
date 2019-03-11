@@ -97,4 +97,27 @@ public class FatServiceImpl implements FatService {
 
         return new ResponseResult(500,"删除失败");
     }
+
+    /**
+     * 搜索酒桶
+     * @param request
+     * @return
+     */
+    @Override
+    public ResponseResult searchFat(HttpServletRequest request) {
+        String page = request.getParameter("page");
+        if (StringUtils.isEmpty(page)) {
+            page = "1";
+        }
+        String fatId = request.getParameter("fatId");
+        String fatProductId = request.getParameter("fatProductId");
+        String fatStatus = request.getParameter("fatStatus");
+        Fat fat = new Fat();
+        fat.setFatProductId(fatProductId);
+        fat.setFatId(fatId);
+        fat.setFatStatus(fatStatus);
+       List<Fat> fats = fatMapper.searchFat(fat);
+       PageInfo pageInfo = new PageInfo(fats);
+        return new ResponseResult(200,"搜索成功",pageInfo);
+    }
 }

@@ -13,10 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class PjjServiceImpl implements PjjService {
@@ -154,6 +151,27 @@ public class PjjServiceImpl implements PjjService {
 
 
         PageInfo pageInfo = new PageInfo(resultList);
+        return new ResponseResult(200,"查询成功",pageInfo);
+    }
+
+    /**
+     * 搜索啤酒机
+     * @param request
+     * @return
+     */
+    @Override
+    public ResponseResult searchPjj(HttpServletRequest request) {
+        String pjjCode = request.getParameter("pjjCode");
+        String address = request.getParameter("address");
+        String status = request.getParameter("status");
+        String page = request.getParameter("page");
+        PageHelper.startPage(Integer.valueOf(page),Param.pageSize);
+        Pjj pjj = new Pjj();
+        pjj.setPjjCode(pjjCode);
+        pjj.setPjjStatus(status);
+        pjj.setPjjAddress(address);
+        List<Pjj> pjjs = pjjMapper.searchPjj(pjj);
+        PageInfo pageInfo = new PageInfo(pjjs);
         return new ResponseResult(200,"查询成功",pageInfo);
     }
 }

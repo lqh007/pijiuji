@@ -40,12 +40,20 @@ public class FatController {
         return fatService.updateFat(fat);
     }
 
-    /**
+        /**
      * 删除酒桶
      * @param fatId 酒桶编号
      */
     @PostMapping("deleteFat")
     public ResponseResult deleteFat(String fatId){
         return fatService.deleteFat(fatId);
+    }
+
+    /**
+     * 搜索酒桶
+     */
+    @GetMapping("searchFat")
+    public ResponseResult searchFat(HttpServletRequest request){
+        return fatService.searchFat(request);
     }
 }
