@@ -3,6 +3,7 @@ package com.pijiuji.admin.service;
 import com.pijiuji.bean.ResponseResult;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 public interface OrderService {
     /**
@@ -18,4 +19,10 @@ public interface OrderService {
      * @return
      */
     ResponseResult searchOrder(HttpServletRequest request);
+
+    /**
+     * 订单金额按月份统计
+     * @return
+     */
+    ResponseResult<Map<String, Object>> orderAmount();
 }

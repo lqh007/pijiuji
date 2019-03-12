@@ -366,7 +366,7 @@
         select * from `order`
         <where>
             <if test="orderId != null and orderId != ''">
-               and order_id = #{orderId}
+                and order_id = #{orderId}
             </if>
             <if test="orderStatus != null and orderStatus != ''">
                 and order_status = #{orderStatus}
@@ -378,7 +378,23 @@
                 and order_createtime &lt; #{endTime}
             </if>
         </where>
-         order by order_createtime desc
+        order by order_createtime desc
+    </select>
+
+    <select id="orderAmount" resultType="java.util.Map">
+        SELECT YEAR
+	( ifnull( order_paytime, '' ) ) year,
+	MONTH ( ifnull( order_paytime, '' ) ) month,
+	sum(ROUND(order_money,2)) amout
+FROM
+	`order`
+WHERE
+	ifnull( order_paytime, '' ) != ''
+	AND ifnull( order_paytime, '' ) BETWEEN date_sub( now( ), INTERVAL 6 MONTH )
+	AND now( )
+GROUP BY
+	YEAR ( ifnull( order_paytime, '' ) ),
+	MONTH ( ifnull( order_paytime, '' ) )
     </select>
 
 </mapper>

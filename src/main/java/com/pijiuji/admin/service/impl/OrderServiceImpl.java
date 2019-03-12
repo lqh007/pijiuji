@@ -20,6 +20,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -117,5 +118,16 @@ public class OrderServiceImpl implements OrderService {
         upd(orders);
         PageInfo pageInfo = new PageInfo(orders);
         return new ResponseResult(200, "搜索成功", pageInfo);
+    }
+
+    @Override
+    public ResponseResult<Map<String, Object>> orderAmount() {
+        ResponseResult responseResult = new ResponseResult();
+        List<Map<String, Object>> resMap = orderMapper.orderAmount();
+        responseResult.setState(200);
+        responseResult.setData(resMap);
+        responseResult.setMessage("success");
+
+        return responseResult;
     }
 }
